@@ -1,7 +1,7 @@
+// java에서 stack을 알기 전
 package com.day0804;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SWEA1218 {
