@@ -1,9 +1,10 @@
 package com.day0803;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class SWEA1873 {
-	
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int tc = sc.nextInt();
@@ -14,15 +15,25 @@ public class SWEA1873 {
 			
 			char[][] map = new char[H][];
 			
-			char heading = '^';
+			char heading = 'U';
 			int[] cur = new int[2];
+
+			HashMap<Character, char[]> hash = new HashMap<>();
+			hash.put('U', new char[]{'^', '0'});
+			hash.put('D', new char[]{'v', '1'});
+			hash.put('L', new char[]{'<', '2'});
+			hash.put('R', new char[]{'>', '3'});
+			hash.put('^', new char[]{'U'});
+			hash.put('v', new char[]{'D'});
+			hash.put('<', new char[]{'L'});
+			hash.put('>', new char[]{'R'});
 			
 			for(int i=0; i<H; i++) { // map 입력
 				map[i] = sc.next().toCharArray();
 //				System.out.println(Arrays.toString(map[i]));	
 				for(int j=0; j<W; j++) {
 					if(map[i][j] == '^' || map[i][j] == 'v' || map[i][j] == '<' || map[i][j] == '>') {
-						heading = map[i][j];
+						heading = hash.get(map[i][j])[0];
 						map[i][j] = '.';
 						cur[0] = i; cur[1] = j;
 					}
@@ -31,80 +42,34 @@ public class SWEA1873 {
 			
 			int num = sc.nextInt();
 			char[] inputs = sc.next().toCharArray();
-			int shoot = 0;
+			int[] shoot;
+			
+			int[] dir_x = {-1, 1, 0, 0};
+			int[] dir_y = {0, 0, -1, 1};
 			
 			for(char ch : inputs) {
-				switch(ch) {
-				case 'U':
-					heading = '^';
-					if(cur[0]-1>=0 && map[cur[0]-1][cur[1]] == '.') {
-						cur[0] -= 1;
+				if(ch == 'S') {
+					shoot = new int[] {cur[0], cur[1]};
+					while(shoot[0]>=0 && shoot[0]<H && shoot[1]>=0 && shoot[1]<W) {
+						if(map[shoot[0]][shoot[1]] == '*') {
+							map[shoot[0]][shoot[1]] = '.';
+							break;
+						} else if(map[shoot[0]][shoot[1]] == '#') break;
+						
+						int dir = hash.get(heading)[1] - '0';
+						shoot[0] += dir_x[dir];
+						shoot[1] += dir_y[dir];
 					}
-					break;
-				case 'D':
-					heading = 'v';
-					if(cur[0]+1<H && map[cur[0]+1][cur[1]] == '.') {
-						cur[0] += 1;
-					}					
-					break;
-				case 'L':
-					heading = '<';
-					if(cur[1]-1>=0 && map[cur[0]][cur[1]-1] == '.') {
-						cur[1] -= 1;
-					}					
-					break;
-				case 'R':
-					heading = '>';
-					if(cur[1]+1<W && map[cur[0]][cur[1]+1] == '.') {
-						cur[1] += 1;
-					}					
-					break;
-				case 'S':
-					switch(heading) {
-					case '^':
-						shoot = cur[0];
-						while(shoot >= 0) {
-							if(map[shoot][cur[1]] == '*') {
-								map[shoot][cur[1]] = '.';
-								break;
-							} else if(map[shoot][cur[1]] == '#') break;
-							shoot -= 1;
-						}
-						break;
-					case 'v':
-						shoot = cur[0];
-						while(shoot < H) {
-							if(map[shoot][cur[1]] == '*') {
-								map[shoot][cur[1]] = '.';
-								break;
-							} else if(map[shoot][cur[1]] == '#') break;
-							shoot += 1;
-						}
-						break;
-					case '<':
-						shoot = cur[1];
-						while(shoot >= 0) {
-							if(map[cur[0]][shoot] == '*') {
-								map[cur[0]][shoot] = '.';
-								break;
-							} else if(map[cur[0]][shoot] == '#') break;
-							shoot -= 1;
-						}
-						break;
-					case '>':
-						shoot = cur[1];
-						while(shoot < W) {
-							if(map[cur[0]][shoot] == '*') {
-								map[cur[0]][shoot] = '.';
-								break;
-							} else if(map[cur[0]][shoot] == '#') break;
-							shoot += 1;
-						}
-						break;
+				} else {
+					heading = ch;
+					int dir = (hash.get(ch))[1] - '0';
+					if(cur[0]+dir_x[dir]>=0 && cur[0]+dir_x[dir]<H &&
+					   cur[1]+dir_y[dir]>=0 && cur[1]+dir_y[dir]<W &&
+					   map[cur[0]+dir_x[dir]][cur[1]+dir_y[dir]] == '.') {
+						cur[0] += dir_x[dir];
+						cur[1] += dir_y[dir];
 					}
-					break;
-				}
-				
+				}				
 //				System.out.println(ch);
 //				map[cur[0]][cur[1]] = heading;
 //				for(char[] chs : map) {
@@ -116,7 +81,7 @@ public class SWEA1873 {
 //				map[cur[0]][cur[1]] = '.';
 			} // 사용자 입력에 따른 상태 변화 완료
 			
-			map[cur[0]][cur[1]] = heading;
+			map[cur[0]][cur[1]] = hash.get(heading)[0];
 			
 			System.out.print("#" + t + " ");
 			for(char[] chs : map) {
@@ -126,6 +91,6 @@ public class SWEA1873 {
 				System.out.println();
 			}
 		}
-	}
+}
 
 }
