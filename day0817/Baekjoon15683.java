@@ -8,7 +8,8 @@ import java.util.StringTokenizer;
 
 public class Baekjoon15683 {
 	
-	static ArrayList<int[][][]> dir = new ArrayList<>();
+	static int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+	static ArrayList<int[][]> cctvDir = new ArrayList<>();
 	static int K, N, M, answer = Integer.MAX_VALUE;
 	static int[] numbers;
 	static int[][] map;
@@ -16,11 +17,11 @@ public class Baekjoon15683 {
 	static ArrayList<Point> wall = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
-		dir.add(new int[][][] {{{0, 1}}, {{1, 0}}, {{0, -1}}, {{-1, 0}}});
-		dir.add(new int[][][] {{{0, -1}, {0, 1}}, {{1, 0}, {-1, 0}}, {{0, -1}, {0, 1}}, {{1, 0}, {-1, 0}}});
-		dir.add(new int[][][] {{{-1, 0}, {0, 1}}, {{0, 1}, {1, 0}}, {{1, 0}, {0, -1}}, {{0, -1}, {-1, 0}}});
-		dir.add(new int[][][] {{{0, -1}, {-1, 0}, {0, 1}}, {{-1, 0}, {0, 1}, {1, 0}}, {{0, 1}, {1, 0}, {0, -1}}, {{1, 0}, {0, -1}, {-1, 0}}});
-		dir.add(new int[][][] {{{0, -1}, {-1, 0}, {0, 1}, {1, 0}}, {{0, -1}, {-1, 0}, {0, 1}, {1, 0}}, {{0, -1}, {-1, 0}, {0, 1}, {1, 0}}, {{0, -1}, {-1, 0}, {0, 1}, {1, 0}}});
+		cctvDir.add(new int[][] {{0}, {1}, {2}, {3}});
+		cctvDir.add(new int[][] {{2, 0}, {1, 3}, {2, 0}, {1, 3}});
+		cctvDir.add(new int[][] {{3, 0}, {0, 1}, {1, 2}, {2, 3}});
+		cctvDir.add(new int[][] {{2, 3, 0}, {3, 0, 1}, {0, 1, 2}, {1, 2, 3}});
+		cctvDir.add(new int[][] {{2, 3, 0, 1}, {2, 3, 0, 1}, {2, 3, 0, 1}, {2, 3, 0, 1}});
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
@@ -69,9 +70,10 @@ public class Baekjoon15683 {
 			int x = cctv.get(k).x, y = cctv.get(k).y;
 			int num = map[x][y]-1;
 			copyMap[x][y] = num+1;
-			int[][] direction = dir.get(num)[numbers[k]];
+			int[] direction = cctvDir.get(num)[numbers[k]];
 			
-			for(int[] w : direction) {
+			for(int idx : direction) {
+				int[] w = dir[idx];
 				int i = x, j = y;
 				while(i>=0 && i<N && j>=0 && j<M) {
 					if(map[i][j] == 0) copyMap[i][j] = -1;
