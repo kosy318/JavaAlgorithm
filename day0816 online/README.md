@@ -110,5 +110,90 @@ FOR i in 2 -> n
 그 나머지 값을 최소한의 동전을 사용하여 지불 할 수 있는 방법을 구한다.
 
 # 분할 정복 기법
+### 유래
+- 1805년 12월 2일 아우스터리츠 전투에서 나폴레옹이 사용한 전략
+- 전력이 우세한 연합군을 공격하기 위해 나폴레옹은 연합군의 중앙부로 쳐들어가 연합군을 둘로 나눔
+- 둘로 나뉜 연합군을 한 부분씩 격파함
+
+### 설계 전력
+- 분할(Divide) : 해결할 문제를 여러 개의 작은 부분으로 나눈다.
+- 정복(Conquer) : 나눈 작은 문제를 각각 해결한다.
+- 통함(Combine) : (필요하다면) 해결된 해답을 모은다.
+
+### Top-down approach
+
+## 거듭 제곱
+<b>SquareNumberTest.java</b><br>
+### 반복(Iterative) 알고리즘 : $O(n)$
+$C^n = C \times C \times C ... C$
+```java
+Iterative_Power(x, n)
+  result <- 1
+  
+  FOR i in 1 -> n
+    result <- result*x
+    
+  RETURN result
+```
+
+### 분할 정복 기반 알고리즘 : $O(\log_2 n)$
+$C^n = C^{(n-1)/2} \times C^{(n-1)/2} \times C$
+```java
+Recursive_Power(x, n)
+  IF n == 1 : RETURN x
+  IF n is even
+    y <- Recursive_Power(x, n/2)
+    RETURN y*y
+  ELSE
+    y <- Recursive_Power(x, (n-1)/2)
+    RETURN y*y*x
+```
+
 # 분할 정복 기법 활용 - 이진 검색
-# 분할 정복 기법 응용 - 같은 색 공간 만들기
+## 이진 검색(Binary Search)
+- 자료의 가운데에 있는 항목의 키 값과 비교하여 다음 검색의 위치를 결정하고 검색을 계속 진행하는 방법
+  - 목적 키를 찾을 때까지 이진 검색을 순환적으로 반복 수행함으로써 검색 범위를 반으로 줄여가면서 보다 빠르게 검색을 수행함
+- 이진 검색을 하기 위해서는 자료가 정렬된 상태여야한다.
+
+### 검색 과정
+1. 자료의 중앙에 있는 원소를 고른다.
+2. 중앙 원소의 값과 찾고자 하는 목표 값을 비교한다.
+3. 중앙 원소의 값과 찾고자 하는 목표 값이 일치하면 탐색을 끝낸다.
+4. 목표 값이 중앙 원소의 값보다 작으면 자료의 왼쪽 반에 대해서 새로 검색을 수행하고, 크다면 자료의 오른쪽 반에 대해서 새로 검색을 수행한다.
+5. 찾고자 하는 값을 찾을 때까지 위의 과정을 반복한다.
+
+### 알고리즘 : 반복구조
+```java
+binarySearch(S[], n, key)
+  start <- 0
+  end <- n-1
+  
+  WHILE start <= end
+    mid <- (start + end) /2
+    IF S[mid] == key
+      RETURN mid
+    ELIF S[mid] < key
+      start <- mid + 1
+    ELIF S[mid] > key
+      end <- mid -1
+  END WHILE
+RETURN -1
+```
+
+### 알고리즘 : 재귀 구조
+```java
+binarySearch(S[], start, end, key)
+  IF start > end
+    RETURN -1
+  ELSE
+    mid <- (start + end) /2
+    IF S[mid] == key
+      RETURN mid
+    ELIF S[mid] < key
+      RETURN binarySearch(S[], mid+1, end, key)
+    ELSE
+      RETURN binarySearch(S[], start, mid-1, key)
+```
+
+## 이진 검색(Binary Search) API
+java.util.Arrays.binarySearch : 정렬된 배열 전달
