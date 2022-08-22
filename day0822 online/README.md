@@ -79,6 +79,7 @@ Find-Set(x)
 3. n-1개의 간선이 선택될 때까지 2번 반복
 
 ### 알고리즘
+<b>KruskalTest.java</b><br>
 ```java
 // G.V: 그래프의 정점 집합
 // G.E: 그래프의 간선 집합
