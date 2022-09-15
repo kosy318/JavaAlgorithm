@@ -1,7 +1,4 @@
 # JavaAlgorithm
 study algorithm with java
 
-### README
-- 0801
-- 0804
-- 0808
+- 0825 : Prim(PQ) + Dijkstra
