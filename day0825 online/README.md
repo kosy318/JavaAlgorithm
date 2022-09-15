@@ -37,7 +37,7 @@ MST-PRIM(G, r) // G: 그래프, r: 시작 정점, minEdge[]: 각 정점기준으
 end MST-PRIM
 ```
 
-<b>PrimTest2_PQ.java</b><br>
+<a href="https://github.com/kosy318/JavaAlgorithm/blob/main/day0825%20online/PrimTest2_PQ.java"><b>PrimTest2_PQ.java</b></a><br>
 
 > Priority Queue + 인접리스트 : $O( (V+E)logV )$
 
