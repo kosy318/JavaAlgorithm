@@ -55,7 +55,7 @@ end MST-PRIM
 - 플로이드-워샬(Floyd-Warshall) 알고리즘
 
 # Dijkstra 알고리즘
-<b>DijkstraTest.java</b><br>
+<a href="https://github.com/kosy318/JavaAlgorithm/blob/main/day0825%20online/DijkstraTest.java"><b>DijkstraTest.java</b></a><br>
 > 시간복잡도 Prim이랑 동일<br>
 
 - 시작 정점에서 다른 모든 정점으로의 최단 경로를 구하는 알고리즘
@@ -105,7 +105,7 @@ Dijkstra(s, A, D)
 
 ## 위상 정렬 구현
 ### BFS 사용
-<b>TopologySortTest.java</b><br>
+<a href="https://github.com/kosy318/JavaAlgorithm/blob/main/day0825%20online/TopologySortTest.java"><b>TopologySortTest.java</b></a><br>
 ```
 1. 진입 차수가 0인 노드(시작점, 선행 작업이 없음)를 큐에 모두 넣는다.
   진입차수 : 다른 정점에서 나로 들어오는 간선 수
