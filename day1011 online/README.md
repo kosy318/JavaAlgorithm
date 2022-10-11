@@ -1,5 +1,3 @@
-# 10/11 문자열 패턴매칭
-
 # 문자열 패턴 매칭
 
 ## 패턴 매칭에 사용되는 알고리즘
@@ -42,6 +40,8 @@ BruteForce(p[], t[])
 - 패턴 내의 문자들을 일일이 비교하는 대신에 패턴의 해시 값과 본문 안에 있는 하위 문자열의 해시 값만을 비교
 - 최악의 시간 복잡도는 $O(MN)$이지만 평균적으로는 선형에 가까운 빠른 속도를 가지는 알고리즘
 
+<br>
+
 숫자로 이루어진 문자열에서, “4321”을 찾자
 
 #### 패턴의 해시 값을 계산한다.
@@ -51,7 +51,7 @@ BruteForce(p[], t[])
 
 #### 찾고자 하는 문자열에서 4자리씩 해시값을 계산한다.
 
-- 찾고자하는 문자열에서 한글자씩 이동하여 패턴 길이만큼 읽어서 해시 값을 계산하는 것이 아니라, 새로 추가되는 문자와 그 전에 읽었던 값을 이용하여 해시값을 구한다.(sliding window : [SlidingWindowTest. java](https://www.notion.so/a101267c29ff4f84a49891f3f7325908))
+- 찾고자하는 문자열에서 한글자씩 이동하여 패턴 길이만큼 읽어서 해시 값을 계산하는 것이 아니라, 새로 추가되는 문자와 그 전에 읽었던 값을 이용하여 해시값을 구한다. (sliding window : <a href="https://github.com/kosy318/JavaAlgorithm/blob/main/day1011%20online/SlidingWindowTest.java">SlidingWindowTest. java</a>)
 - 여기서는 전 값에서 맨 앞자리 수 를 빼고 10을 곱한 후 새로운 수를 더해준다.
 
 #### 고려사항
@@ -79,6 +79,8 @@ BruteForce(p[], t[])
 
 ### KMP 알고리즘
 
+<a href="https://github.com/kosy318/JavaAlgorithm/blob/main/day1011%20online/String_KMPTest.java">String_KMPTest.java</a>
+
 - Knuth-Morris-Pratt Algorithm
 - 불일치가 발생한 텍스트 문자열의 앞 부분에 어떤 문자가 있는지를 미리 알고있으므로, 불일치가 발생한 앞 부분에 대하여 다시 비교하지 않고 매칭을 수행
     - ex) S = “aaaaaaaaab”, W=”aaaab”가 있는데 S와 W에 a가 계속 반복되므로 S의 매 위치마다 최소 5번의 비교를 하게 된다.
@@ -99,6 +101,6 @@ BruteForce(p[], t[])
 - 맨 앞부터 해당 인덱스까지의 길이가 2이상인 부분문자열 중 접두사이면서 접미사인 최대 문자열
 - “ababaca”의 부분일치 테이블은 “ababaca”와 비교해가며 얻는다.
 
-![Untitled](10%2011%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%A7%E1%86%AF%20%E1%84%91%E1%85%A2%E1%84%90%E1%85%A5%E1%86%AB%E1%84%86%E1%85%A2%E1%84%8E%E1%85%B5%E1%86%BC%200c7bed164f9f4d13be8df551b5c30261/Untitled.png)
+<img src="https://user-images.githubusercontent.com/77595685/195155092-ef6fca6b-100a-472a-8973-221ccc69b61e.png" style="width: 700px;"/>
 
 - 부분일치 테이블을 사용해서 일치하는 패턴을 찾는다.
